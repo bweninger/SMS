@@ -12,7 +12,6 @@ import org.springframework.web.servlet.DispatcherServlet;
 
 public class AppInitializer implements WebApplicationInitializer{
 	
-	@Override
 	public void onStartup(ServletContext servletContext) throws ServletException {
 		WebApplicationContext context = getContext();
         servletContext.addListener(new ContextLoaderListener(context));
@@ -23,7 +22,7 @@ public class AppInitializer implements WebApplicationInitializer{
 	
 	private AnnotationConfigWebApplicationContext getContext(){
 		AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
-		context.setConfigLocation("br.mhttp://marketplace.eclipse.org/marketplace-client-intro?mpc_install=1336ackenzie.apd3.loja.config");
+		context.setConfigLocation("br.mackenzie.apd3.loja.config");
 		return context;
 	}
 
