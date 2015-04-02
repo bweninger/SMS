@@ -2,7 +2,7 @@ package br.mackenzie.apd3.loja.model;
 
 import javax.persistence.Entity;
 
-@Entity
+//@Entity
 public class Cliente {
 
 }
