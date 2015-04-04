@@ -1,10 +1,13 @@
 package br.mackenzie.apd3.loja.model;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -22,20 +25,20 @@ public class Produto {
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Long id;
 	private String nome;
-	private double preco;
+	private BigDecimal preco;
 	private String descricao;
-	private long codProduto;
 	private String urlFoto;
+	@ManyToOne
 	private Categoria categoria;
-	private int avaliacaoMedia;
+	private Integer avaliacaoMedia;
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -47,11 +50,11 @@ public class Produto {
 		this.nome = nome;
 	}
 
-	public double getPreco() {
+	public BigDecimal getPreco() {
 		return preco;
 	}
 
-	public void setPreco(double preco) {
+	public void setPreco(BigDecimal preco) {
 		this.preco = preco;
 	}
 
@@ -61,14 +64,6 @@ public class Produto {
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
-	}
-
-	public long getCodProduto() {
-		return codProduto;
-	}
-
-	public void setCodProduto(long codProduto) {
-		this.codProduto = codProduto;
 	}
 
 	public String getUrlFoto() {

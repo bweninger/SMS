@@ -13,5 +13,4 @@ public class PedidoController {
 	public String listarPedidos() {
 		return "Listando Pedidos";
 	}
-
 }

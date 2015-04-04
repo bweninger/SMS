@@ -1,14 +1,30 @@
 package br.mackenzie.apd3.loja.model;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Endereco {
 
+	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Long idEndereco;
 	private String logradouro;
 	private int numero;
 	private String complemento;
 	private String cep;
+	@ManyToOne
+	private Cliente cliente;
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
 
 	public String getLogradouro() {
 		return logradouro;
@@ -42,4 +58,12 @@ public class Endereco {
 		this.cep = cep;
 	}
 
+	public Long getIdEndereco() {
+		return idEndereco;
+	}
+
+	public void setIdEndereco(Long idEndereco) {
+		this.idEndereco = idEndereco;
+	}
+	
 }

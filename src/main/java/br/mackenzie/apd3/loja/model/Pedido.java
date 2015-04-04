@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -18,11 +20,13 @@ public class Pedido {
 	@Id
 	@Column(name = "cdPedido")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long cdPedido;
+	private Long cdPedido;
+	@ManyToOne
 	private Cliente cliente;
-	private StatusPedido status;
+	//private StatusPedido status;
+	@OneToMany
 	private List<ItemPedido> itens;
-	private Pagamento pagamento;
+	//private Pagamento pagamento;
 	private Date dataPedido;
 	private Date dataPrevisaoEntrega;
 
@@ -42,13 +46,13 @@ public class Pedido {
 		this.cliente = cliente;
 	}
 
-	public StatusPedido getStatus() {
+	/*public StatusPedido getStatus() {
 		return status;
 	}
 
 	public void setStatus(StatusPedido status) {
 		this.status = status;
-	}
+	}*/
 
 	public List<ItemPedido> getItens() {
 		return itens;
@@ -58,14 +62,14 @@ public class Pedido {
 		this.itens = itens;
 	}
 
-	public Pagamento getPagamento() {
+	/*public Pagamento getPagamento() {
 		return pagamento;
 	}
 
 	public void setPagamento(Pagamento pagamento) {
 		this.pagamento = pagamento;
 	}
-
+*/
 	public Date getDataPedido() {
 		return dataPedido;
 	}

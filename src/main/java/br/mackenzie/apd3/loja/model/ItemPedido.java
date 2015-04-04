@@ -1,32 +1,20 @@
 package br.mackenzie.apd3.loja.model;
 
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 
 @Entity
 public class ItemPedido {
 
-	private Produto produto;
-	private Pedido pedido;
-	private int quantidade;
+	@EmbeddedId
+	private ItemPedidoPK pk;
+	
+	private int quantidade;	
+	
 	private String comentario;
+	
 	private int avaliacao;
-
-	public Produto getProduto() {
-		return produto;
-	}
-
-	public void setProduto(Produto produto) {
-		this.produto = produto;
-	}
-
-	public Pedido getPedido() {
-		return pedido;
-	}
-
-	public void setPedido(Pedido pedido) {
-		this.pedido = pedido;
-	}
-
+	
 	public int getQuantidade() {
 		return quantidade;
 	}
