@@ -2,8 +2,10 @@ package br.mackenzie.apd3.loja.model;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="item_pedido")
 public class ItemPedido {
 
 	@EmbeddedId

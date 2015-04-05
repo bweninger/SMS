@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
@@ -16,6 +17,7 @@ public class Endereco {
 	private String complemento;
 	private String cep;
 	@ManyToOne
+	@JoinColumn(name="idCliente", referencedColumnName="idCliente")
 	private Cliente cliente;
 
 	public Cliente getCliente() {

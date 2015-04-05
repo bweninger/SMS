@@ -8,7 +8,7 @@ import br.mackenzie.apd3.loja.dao.ProdutoDAO;
 import br.mackenzie.apd3.loja.model.Produto;
 
 @Repository
-public class ProdutoDAOImpl implements ProdutoDAO{
+public class ProdutoDAOImpl implements ProdutoDAO {
 
 	@Override
 	public Produto buscarPorChave(Produto chave) {
@@ -25,19 +25,19 @@ public class ProdutoDAOImpl implements ProdutoDAO{
 	@Override
 	public void incluir() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void excluir() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void atualizar() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

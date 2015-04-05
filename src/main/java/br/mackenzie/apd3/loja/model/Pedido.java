@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -15,18 +16,22 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "Pedido")
 public class Pedido {
-	
-	
+		
 	@Id
 	@Column(name = "cdPedido")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long cdPedido;
 	@ManyToOne
+	@JoinColumn(name="idCliente", referencedColumnName="idCliente")
 	private Cliente cliente;
-	//private StatusPedido status;
-	@OneToMany
+	@ManyToOne
+	@JoinColumn(name="idStatusPedido", referencedColumnName="idStatusPedido")
+	private StatusPedido status;
+	@OneToMany(mappedBy="pk.pedido")	
 	private List<ItemPedido> itens;
-	//private Pagamento pagamento;
+	@ManyToOne
+	@JoinColumn(name="cdPagamento", referencedColumnName="cdPagamento")
+	private Pagamento pagamento;
 	private Date dataPedido;
 	private Date dataPrevisaoEntrega;
 

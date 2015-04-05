@@ -8,21 +8,19 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
 @Entity
-@Table(name = "Cliente")
 public class Cliente {
 
 	@Id
-	@Column(name = "id")
+	@Column(name = "idCliente")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String nome;
 	private String email;
 	private String cpf;
 	private String senha;
-	@OneToMany	
+	@OneToMany(mappedBy="cliente")	
 	private List<Endereco> enderecos;
 
 	public Long getId() {

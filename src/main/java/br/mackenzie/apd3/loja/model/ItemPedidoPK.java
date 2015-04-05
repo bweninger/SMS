@@ -10,11 +10,11 @@ import javax.persistence.ManyToOne;
 public class ItemPedidoPK implements Serializable {
 	
 	@ManyToOne
-	@JoinColumn
+	@JoinColumn(name="idProduto", referencedColumnName="idProduto")
 	private Produto produto;
 	
 	@ManyToOne
-	@JoinColumn
+	@JoinColumn(name="idPedido", referencedColumnName="cdPedido")
 	private Pedido pedido;
 	
 	public Produto getProduto() {

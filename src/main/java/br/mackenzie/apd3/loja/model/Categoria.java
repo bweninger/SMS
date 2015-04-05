@@ -9,15 +9,15 @@ import javax.persistence.Id;
 public class Categoria {
 
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long cdCategoria;
+	private Long idCategoria;
 	private String descricao;
 
-	public Long getCdCategoria() {
-		return cdCategoria;
+	public Long getIdCategoria() {
+		return idCategoria;
 	}
 
-	public void setCdCategoria(Long cdCategoria) {
-		this.cdCategoria = cdCategoria;
+	public void setIdCategoria(Long idCategoria) {
+		this.idCategoria = idCategoria;
 	}
 
 	public String getDescricao() {

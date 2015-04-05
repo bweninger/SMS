@@ -1,16 +1,24 @@
 package br.mackenzie.apd3.loja.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class StatusPagamento {
 
-	private int cdStatus;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long idStatusPagamento;
 	private String descricao;
 
-	public int getCdStatus() {
-		return cdStatus;
+	public Long getIdStatusPagamento() {
+		return idStatusPagamento;
 	}
 
-	public void setCdStatus(int cdStatus) {
-		this.cdStatus = cdStatus;
+	public void setIdStatusPagamento(Long idStatusPagamento) {
+		this.idStatusPagamento = idStatusPagamento;
 	}
 
 	public String getDescricao() {
