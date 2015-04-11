@@ -9,18 +9,18 @@ import java.util.List;
  * @author Maciel
  *
  * @param <T>
- * @param <Type>
+ * @param <PK>
  */
-public interface GenericDAO<T, Type extends Serializable> {
+public interface GenericDAO<T, PK extends Serializable> {
 
-	public T buscarPorChave(T chave);
+	T buscarPorChave(PK chave);
 
-	public List<T> listar();
+	List<T> listar();
 
-	public void incluir();
+	void incluir(T entidade);
 
-	public void excluir();
+	void excluir(T entidade);
 
-	public void atualizar();
+	void atualizar(T entidade);
 
 }
