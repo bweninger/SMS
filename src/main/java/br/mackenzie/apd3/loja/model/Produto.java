@@ -1,5 +1,7 @@
 package br.mackenzie.apd3.loja.model;
 
+import br.mackenzie.apd3.loja.dto.ProdutoDTO;
+
 import java.math.BigDecimal;
 
 import javax.persistence.Column;
@@ -21,7 +23,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "Produto")
-public class Produto {
+public class Produto implements Entidade<ProdutoDTO> {
 
 	@Id
 	@Column(name = "idProduto")
@@ -90,6 +92,18 @@ public class Produto {
 
 	public void setAvaliacaoMedia(int avaliacaoMedia) {
 		this.avaliacaoMedia = avaliacaoMedia;
+	}
+
+	public ProdutoDTO converterParaDTO(){
+		ProdutoDTO dto = new ProdutoDTO();
+		dto.setAvaliacaoMedia(this.avaliacaoMedia);
+		dto.setDescricao(this.descricao);
+		dto.setId(this.id);
+		dto.setNome(this.nome);
+		dto.setPreco(this.preco);
+		dto.setUrlFoto(this.urlFoto);
+		dto.setCategoria(this.categoria.converterParaDTO());
+		return dto;
 	}
 
 	

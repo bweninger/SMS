@@ -1,14 +1,16 @@
 package br.mackenzie.apd3.loja.controller;
 
+import br.mackenzie.apd3.loja.dto.ProdutoDTO;
 import br.mackenzie.apd3.loja.model.Produto;
-import com.google.gson.Gson;
+import br.mackenzie.apd3.loja.service.ProdutoService;
+import br.mackenzie.apd3.loja.util.DTOUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import br.mackenzie.apd3.loja.service.ProdutoService;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.util.List;
 
@@ -20,10 +22,10 @@ public class ProdutoController {
 	private ProdutoService produtoService;
 
 	@RequestMapping(value = "/listar", method = RequestMethod.GET)
+	@ResponseStatus(value = HttpStatus.OK)
 	@ResponseBody
-	public String listarProdutos() {
+	public List<ProdutoDTO> listarProdutos() {
 		List<Produto> prods = this.produtoService.listarProdutos();
-		Gson gson = new Gson();
-		return gson.toJson(prods);
+		return DTOUtil.converterLista(prods, ProdutoDTO.class);
 	}
 }

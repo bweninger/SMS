@@ -6,9 +6,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
+@RequestMapping(value="/pedidos")
 public class PedidoController {
 	
-	@RequestMapping(value="/pedidos", method=RequestMethod.GET)
+	@RequestMapping(value="/", method=RequestMethod.GET)
 	@ResponseBody
 	public String listarPedidos() {
 		return "Listando Pedidos";
