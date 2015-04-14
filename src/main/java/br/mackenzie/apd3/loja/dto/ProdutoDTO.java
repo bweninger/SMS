@@ -73,4 +73,17 @@ public class ProdutoDTO implements DataTransferObject<Produto>{
     public void setAvaliacaoMedia(Integer avaliacaoMedia) {
         this.avaliacaoMedia = avaliacaoMedia;
     }
+
+    @Override
+    public Produto converterParaEntidade() {
+        Produto entidade = new Produto();
+        entidade.setAvaliacaoMedia(this.avaliacaoMedia);
+        entidade.setCategoria(this.getCategoria().converterParaEntidade());
+        entidade.setDescricao(this.descricao);
+        entidade.setId(this.id);
+        entidade.setNome(this.nome);
+        entidade.setPreco(this.preco);
+        entidade.setUrlFoto(this.urlFoto);
+        return entidade;
+    }
 }

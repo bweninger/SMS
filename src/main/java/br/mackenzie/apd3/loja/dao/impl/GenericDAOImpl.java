@@ -2,9 +2,13 @@ package br.mackenzie.apd3.loja.dao.impl;
 
 import br.mackenzie.apd3.loja.dao.GenericDAO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate4.HibernateTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
@@ -17,32 +21,39 @@ public abstract class GenericDAOImpl<T, PK extends Serializable> implements Gene
 
     private Class<T> persistentClass;
 
-    @Autowired
-    protected HibernateTemplate hibernateTemplate;
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Override
     public T buscarPorChave(PK chave) {
-        return this.hibernateTemplate.get(getPersistentClass(), chave);
+        return this.entityManager.find(getPersistentClass(), chave);
     }
 
     @Override
     public List<T> listar() {
-        return this.hibernateTemplate.loadAll(getPersistentClass());
+        Class<T> clazz = getPersistentClass();
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT entity FROM " + clazz.getSimpleName() + " entity");
+        Query q = this.entityManager.createQuery(sql.toString(), clazz);
+        return q.getResultList();
     }
 
     @Override
     public void incluir(T entidade) {
-        this.hibernateTemplate.persist(entidade);
+        this.entityManager.persist(entidade);
+        this.entityManager.flush();
     }
 
     @Override
     public void excluir(T entidade) {
-        this.hibernateTemplate.delete(entidade);
+        this.entityManager.remove(entidade);
+        this.entityManager.flush();
     }
 
     @Override
     public void atualizar(T entidade) {
-        this.hibernateTemplate.merge(entidade);
+        this.entityManager.merge(entidade);
+        this.entityManager.flush();
     }
 
     private Class<T> getPersistentClass() {
@@ -52,4 +63,5 @@ public abstract class GenericDAOImpl<T, PK extends Serializable> implements Gene
         }
         return this.persistentClass;
     }
+
 }

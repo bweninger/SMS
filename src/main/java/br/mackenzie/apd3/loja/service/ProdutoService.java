@@ -9,4 +9,6 @@ public interface ProdutoService {
 
     List<Produto> listarProdutos();
 
+    void cadastrarProduto(Produto novoProduto);
+
 }

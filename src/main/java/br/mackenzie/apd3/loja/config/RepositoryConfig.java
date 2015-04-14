@@ -1,20 +1,24 @@
 package br.mackenzie.apd3.loja.config;
 
-import java.util.Properties;
-
-import javax.sql.DataSource;
-
-import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.orm.hibernate4.HibernateTemplate;
-import org.springframework.orm.hibernate4.HibernateTransactionManager;
-import org.springframework.orm.hibernate4.LocalSessionFactoryBean;;
+import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.orm.jpa.JpaVendorAdapter;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+import javax.persistence.EntityManagerFactory;
+import javax.sql.DataSource;
+import java.util.Properties;
 
 @Configuration
+@EnableTransactionManagement
 public class RepositoryConfig {
 
 	@Value("${jdbc.driverClassName}")
@@ -44,29 +48,29 @@ public class RepositoryConfig {
 	}
 
 	@Bean
-	@Autowired
-	public HibernateTransactionManager transactionManager(
-			SessionFactory sessionFactory) {
-		HibernateTransactionManager htm = new HibernateTransactionManager();
-		htm.setSessionFactory(sessionFactory);
-		return htm;
+	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+		LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
+		em.setDataSource(getDataSource());
+		em.setPackagesToScan(new String[]{"br.mackenzie.apd3.loja"});
+
+		JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+		em.setJpaVendorAdapter(vendorAdapter);
+		em.setJpaProperties(getHibernateProperties());
+
+		return em;
 	}
 
 	@Bean
 	@Autowired
-	public HibernateTemplate getHibernateTemplate(SessionFactory sessionFactory) {
-		HibernateTemplate hibernateTemplate = new HibernateTemplate(
-				sessionFactory);
-		return hibernateTemplate;
+	public PlatformTransactionManager transactionManager(EntityManagerFactory factory) {
+		JpaTransactionManager transactionManager = new JpaTransactionManager();
+		transactionManager.setEntityManagerFactory(factory);
+		return transactionManager;
 	}
 
 	@Bean
-	public LocalSessionFactoryBean getSessionFactory() {
-		LocalSessionFactoryBean asfb = new LocalSessionFactoryBean();
-		asfb.setDataSource(getDataSource());
-		asfb.setHibernateProperties(getHibernateProperties());
-		asfb.setPackagesToScan(new String[] { "br.mackenzie.apd3.loja" });
-		return asfb;
+	public PersistenceExceptionTranslationPostProcessor exceptionTranslation(){
+		return new PersistenceExceptionTranslationPostProcessor();
 	}
 
 	@Bean
@@ -78,5 +82,4 @@ public class RepositoryConfig {
 
 		return props;
 	}
-
 }

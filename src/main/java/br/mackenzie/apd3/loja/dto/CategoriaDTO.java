@@ -25,4 +25,12 @@ public class CategoriaDTO implements DataTransferObject<Categoria>{
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
+
+    @Override
+    public Categoria converterParaEntidade() {
+        Categoria entidade = new Categoria();
+        entidade.setDescricao(this.descricao);
+        entidade.setIdCategoria(this.idCategoria);
+        return entidade;
+    }
 }

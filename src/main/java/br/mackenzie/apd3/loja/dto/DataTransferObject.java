@@ -5,4 +5,5 @@ package br.mackenzie.apd3.loja.dto;
  */
 public interface DataTransferObject<Entidade> {
 
+    Entidade converterParaEntidade();
 }
