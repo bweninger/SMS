@@ -16,7 +16,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "Produto")
-public class Produto implements Entidade<ProdutoDTO> {
+public class Produto {
 
 	@Id
 	@Column(name = "idProduto")
@@ -79,11 +79,11 @@ public class Produto implements Entidade<ProdutoDTO> {
 		this.categoria = categoria;
 	}
 
-	public int getAvaliacaoMedia() {
+	public Integer getAvaliacaoMedia() {
 		return avaliacaoMedia;
 	}
 
-	public void setAvaliacaoMedia(int avaliacaoMedia) {
+	public void setAvaliacaoMedia(Integer avaliacaoMedia) {
 		this.avaliacaoMedia = avaliacaoMedia;
 	}
 

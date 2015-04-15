@@ -5,7 +5,7 @@ import br.mackenzie.apd3.loja.model.Categoria;
 /**
  * Created by BWeninger on 11/04/2015.
  */
-public class CategoriaDTO implements DataTransferObject<Categoria>{
+public class CategoriaDTO {
 
     private Long idCategoria;
     private String descricao;
@@ -26,11 +26,4 @@ public class CategoriaDTO implements DataTransferObject<Categoria>{
         this.descricao = descricao;
     }
 
-    @Override
-    public Categoria converterParaEntidade() {
-        Categoria entidade = new Categoria();
-        entidade.setDescricao(this.descricao);
-        entidade.setIdCategoria(this.idCategoria);
-        return entidade;
-    }
 }

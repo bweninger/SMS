@@ -48,28 +48,13 @@ CREATE  TABLE `apd3loja`.`Produto` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);$$
 
-CREATE  TABLE `apd3loja`.`StatusPagamento` (
-  `idStatusPagamento` BIGINT NOT NULL AUTO_INCREMENT ,
-  `descricao` VARCHAR(20) NOT NULL ,
-  PRIMARY KEY (`idStatusPagamento`) ); $$
-
 CREATE  TABLE `apd3loja`.`Pagamento` (
   `cdPagamento` BIGINT NOT NULL AUTO_INCREMENT ,
   `valor` DECIMAL(6,2) NOT NULL ,
   `idStatusPagamento` BIGINT NOT NULL ,
 	`tipoPagamento` INT NOT NULL ,	
   PRIMARY KEY (`cdPagamento`) ,
-  INDEX `pagamento_status_idx` (`idStatusPagamento` ASC) ,
-  CONSTRAINT `pagamento_status`
-    FOREIGN KEY (`idStatusPagamento` )
-    REFERENCES `apd3loja`.`statuspagamento` (`idStatusPagamento` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION); $$
-
-CREATE  TABLE `apd3loja`.`StatusPedido` (
-  `idStatusPedido` BIGINT NOT NULL AUTO_INCREMENT ,
-  `descricao` VARCHAR(30) NOT NULL ,
-  PRIMARY KEY (`idStatusPedido`) ); $$
+  INDEX `pagamento_status_idx` (`idStatusPagamento` ASC)); $$
 
 CREATE TABLE `pedido` (
   `cdPedido` bigint(20) NOT NULL AUTO_INCREMENT ,
@@ -80,14 +65,12 @@ CREATE TABLE `pedido` (
   `idStatusPedido` bigint(20) NOT NULL,
   `cdPagamento` bigint(20) NOT NULL,
   PRIMARY KEY (`cdPedido`),
-  KEY `pedido_status_idx` (`idStatusPedido`),
   KEY `pedido_cliente_idx` (`idCliente`),
   KEY `pedido_endereco_idx` (`idEndereco`),
   KEY `pedido_pagamento_idx` (`cdPagamento`),
   CONSTRAINT `pedido_pagamento` FOREIGN KEY (`cdPagamento`) REFERENCES `pagamento` (`cdPagamento`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `pedido_cliente` FOREIGN KEY (`idCliente`) REFERENCES `cliente` (`idCliente`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `pedido_endereco` FOREIGN KEY (`idEndereco`) REFERENCES `endereco` (`idEndereco`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `pedido_status` FOREIGN KEY (`idStatusPedido`) REFERENCES `statuspedido` (`idStatusPedido`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `pedido_endereco` FOREIGN KEY (`idEndereco`) REFERENCES `endereco` (`idEndereco`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8$$
 
 CREATE TABLE `apd3loja`.`item_pedido` (

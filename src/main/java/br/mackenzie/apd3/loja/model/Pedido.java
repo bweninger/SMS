@@ -3,15 +3,7 @@ package br.mackenzie.apd3.loja.model;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "Pedido")
@@ -24,8 +16,7 @@ public class Pedido {
 	@ManyToOne
 	@JoinColumn(name="idCliente", referencedColumnName="idCliente")
 	private Cliente cliente;
-	@ManyToOne
-	@JoinColumn(name="idStatusPedido", referencedColumnName="idStatusPedido")
+	@Enumerated(EnumType.ORDINAL)
 	private StatusPedido status;
 	@OneToMany(mappedBy="pk.pedido")	
 	private List<ItemPedido> itens;
@@ -51,13 +42,13 @@ public class Pedido {
 		this.cliente = cliente;
 	}
 
-	/*public StatusPedido getStatus() {
+	public StatusPedido getStatus() {
 		return status;
 	}
 
 	public void setStatus(StatusPedido status) {
 		this.status = status;
-	}*/
+	}
 
 	public List<ItemPedido> getItens() {
 		return itens;
@@ -67,14 +58,14 @@ public class Pedido {
 		this.itens = itens;
 	}
 
-	/*public Pagamento getPagamento() {
+	public Pagamento getPagamento() {
 		return pagamento;
 	}
 
 	public void setPagamento(Pagamento pagamento) {
 		this.pagamento = pagamento;
 	}
-*/
+
 	public Date getDataPedido() {
 		return dataPedido;
 	}

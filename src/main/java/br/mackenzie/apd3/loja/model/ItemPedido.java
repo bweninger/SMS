@@ -11,17 +11,17 @@ public class ItemPedido {
 	@EmbeddedId
 	private ItemPedidoPK pk;
 	
-	private int quantidade;	
+	private Integer quantidade;
 	
 	private String comentario;
 	
-	private int avaliacao;
+	private Integer avaliacao;
 	
-	public int getQuantidade() {
+	public Integer getQuantidade() {
 		return quantidade;
 	}
 
-	public void setQuantidade(int quantidade) {
+	public void setQuantidade(Integer quantidade) {
 		this.quantidade = quantidade;
 	}
 
@@ -33,11 +33,11 @@ public class ItemPedido {
 		this.comentario = comentario;
 	}
 
-	public int getAvaliacao() {
+	public Integer getAvaliacao() {
 		return avaliacao;
 	}
 
-	public void setAvaliacao(int avaliacao) {
+	public void setAvaliacao(Integer avaliacao) {
 		this.avaliacao = avaliacao;
 	}
 

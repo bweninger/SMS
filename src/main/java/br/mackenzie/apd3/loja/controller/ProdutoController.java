@@ -2,7 +2,6 @@ package br.mackenzie.apd3.loja.controller;
 
 import br.mackenzie.apd3.loja.dto.ProdutoDTO;
 import br.mackenzie.apd3.loja.model.Produto;
-import br.mackenzie.apd3.loja.service.CategoriaService;
 import br.mackenzie.apd3.loja.service.ProdutoService;
 import br.mackenzie.apd3.loja.util.DTOUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,27 +15,32 @@ import java.util.List;
 @RequestMapping(value = "/produtos")
 public class ProdutoController {
 
-	@Autowired
-	private ProdutoService produtoService;
+    @Autowired
+    private ProdutoService produtoService;
 
-	@Autowired
-	private CategoriaService categoriaService;
+    @RequestMapping(value = "/listar", method = RequestMethod.GET)
+    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseBody
+    public List<ProdutoDTO> listarProdutos() {
+        List<ProdutoDTO> listaDto = null;
+        try {
+            listaDto = DTOUtil.converterLista(this.produtoService.listarProdutos(),
+                    ProdutoDTO.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-	@RequestMapping(value = "/listar", method = RequestMethod.GET)
-	@ResponseStatus(value = HttpStatus.OK)
-	@ResponseBody
-	public List<ProdutoDTO> listarProdutos() {
-		List<Produto> prods = this.produtoService.listarProdutos();
-		return DTOUtil.converterLista(prods, ProdutoDTO.class);
-	}
+        return listaDto;
+    }
 
-	@RequestMapping(value = "/novo", method = RequestMethod.POST)
-	@ResponseStatus(value = HttpStatus.OK)
-	@ResponseBody
-	public String incluirProduto(@RequestBody ProdutoDTO novoProduto){
+    @RequestMapping(value = "/novo", method = RequestMethod.POST)
+    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseBody
+    public ProdutoDTO cadastrarProduto(@RequestBody ProdutoDTO novoProduto) {
+        Produto produto = new Produto();
+        DTOUtil.copiarPropriedades(novoProduto, produto, DTOUtil.obterNomesAtributos(novoProduto.getClass()));
+        this.produtoService.cadastrarProduto(produto);
+        return novoProduto;
+    }
 
-		Produto produto = novoProduto.converterParaEntidade();
-		this.produtoService.cadastrarProduto(produto);
-		return "Sucesso";
-	}
 }

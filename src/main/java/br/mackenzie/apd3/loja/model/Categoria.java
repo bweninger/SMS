@@ -8,7 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Categoria implements Entidade<CategoriaDTO>{
+public class Categoria{
 
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long idCategoria;
