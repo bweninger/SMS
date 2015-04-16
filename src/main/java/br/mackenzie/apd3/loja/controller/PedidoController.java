@@ -2,14 +2,10 @@ package br.mackenzie.apd3.loja.controller;
 
 import br.mackenzie.apd3.loja.dto.ItemPedidoDTO;
 import br.mackenzie.apd3.loja.dto.PedidoDTO;
-import br.mackenzie.apd3.loja.model.Pedido;
-import br.mackenzie.apd3.loja.util.DTOUtil;
 import org.springframework.context.annotation.Scope;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping(value = "/pedidos")
@@ -25,18 +21,32 @@ public class PedidoController {
     }
 
     @RequestMapping(value = "/incluirProduto", method = RequestMethod.POST)
-    @ResponseBody
-    public PedidoDTO incluirProdutoCarrinho(@RequestBody ItemPedidoDTO item) {
+    @ResponseStatus(HttpStatus.OK)
+    public void incluirProdutoCarrinho(@RequestBody ItemPedidoDTO item) {
         this.pedidoDTO.adicionarItem(item);
-        return this.pedidoDTO;
     }
 
-    @RequestMapping(value = "/finalizar",   method = RequestMethod.GET)
-    @ResponseBody
-    public PedidoDTO finalizarPedido() {
-        this.pedidoDTO.finalizar();
-        Pedido pedido = new Pedido();
-        DTOUtil.copiarPropriedades(this.pedidoDTO, pedido, DTOUtil.obterNomesAtributos(PedidoDTO.class));
-        return this.pedidoDTO;
+    @RequestMapping(value = "/fecharPedido", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    public void fecharPedido() {
+        this.pedidoDTO.fecharPedido();
+    }
+
+    @RequestMapping(value = "/selecionarPagamento", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.OK)
+    public void selecionaPagamento(@RequestBody Integer tipoPagamento) {
+        switch (tipoPagamento) {
+            case 1:
+                this.pedidoDTO.pagarPorBoleto();
+                break;
+            case 2:
+                this.pedidoDTO.pagarPorDebitoEmConta();
+                break;
+            case 3:
+                this.pedidoDTO.pagarPorPagSeguro();
+                break;
+            default:
+                throw new IllegalArgumentException("Forma de pagamento inválida");
+        }
     }
 }

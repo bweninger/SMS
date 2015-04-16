@@ -4,8 +4,10 @@ import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -44,16 +46,25 @@ public final class DTOUtil {
         for (final String propertyName : properties) {
             Class<?> sourceType = src.getPropertyType(propertyName);
             Class<?> targetType = trg.getPropertyType(propertyName);
-            if (targetType == sourceType) {
-                trg.setPropertyValue(propertyName, src.getPropertyValue(propertyName));
-            } else {
-                try {
-                    Object instance = targetType.newInstance();
-                    copiarPropriedades(src.getPropertyValue(propertyName), instance, obterNomesAtributos(sourceType));
-                    trg.setPropertyValue(propertyName, instance);
-                } catch (IllegalAccessException | InstantiationException ex) {
-                    System.out.println("Ocorreu um erro ao copiar as propriedades dos beans: ");
-                    ex.printStackTrace();
+            if (src.getPropertyValue(propertyName) != null) {
+                if (targetType == sourceType) {
+                    trg.setPropertyValue(propertyName, src.getPropertyValue(propertyName));
+                } else if (source instanceof List &&
+                        target instanceof List) {
+                    List collectionSrc = (List) source;
+                    List collectionTgt = converterLista(collectionSrc,
+                            ((ParameterizedType) target.getClass().
+                                    getGenericSuperclass()).getActualTypeArguments()[0].getClass());
+                    trg.setPropertyValue(propertyName, collectionTgt);
+                } else {
+                    try {
+                        Object instance = targetType.newInstance();
+                        copiarPropriedades(src.getPropertyValue(propertyName), instance, obterNomesAtributos(sourceType));
+                        trg.setPropertyValue(propertyName, instance);
+                    } catch (IllegalAccessException | InstantiationException ex) {
+                        System.out.println("Ocorreu um erro ao copiar as propriedades dos beans: ");
+                        ex.printStackTrace();
+                    }
                 }
             }
         }

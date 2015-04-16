@@ -9,9 +9,9 @@ import java.math.BigDecimal;
  */
 public class PagamentoDTO {
     
-    private Long cdPagamento;
-    private BigDecimal valor;
-    private StatusPagamento status;
+    protected Long cdPagamento;
+    protected BigDecimal valor;
+    protected StatusPagamento status;
 
     public Long getCdPagamento() {
         return cdPagamento;
@@ -43,5 +43,13 @@ public class PagamentoDTO {
     }
 
     public PagamentoDTO() {
+    }
+
+    public void autorizar(){
+        this.setStatus(StatusPagamento.PAGAMENTO_AUTORIZADO);
+    }
+
+    public void negar(){
+        this.setStatus(StatusPagamento.PAGAMENTO_NEGADO);
     }
 }

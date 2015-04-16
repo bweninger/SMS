@@ -53,26 +53,28 @@ public class PedidoDTO {
         this.getItens().add(itemPedidoDTO);
     }
 
-    public void finalizar() {
-        this.status = StatusPedido.AGUARDANDO_PAGAMENTO;
-        this.pagamento = new PagamentoDTO(calcularValorPedido(),
-                StatusPagamento.AGUARDANDO_PAGAMENTO);
+    public void fecharPedido() {
+        if (status == StatusPedido.CARRINHO_DE_COMPRAS) {
+            this.status = StatusPedido.AGUARDANDO_PAGAMENTO;
+        } else {
+            throw new IllegalStateException();
+        }
     }
 
     public PagamentoDTO getPagamento() {
         return pagamento;
     }
 
-    public void setPagamento(PagamentoDTO pagamento) {
+    private void setPagamento(PagamentoDTO pagamento) {
         this.pagamento = pagamento;
     }
 
-    private BigDecimal calcularValorPedido() {
+    public BigDecimal calcularValorPedido() {
         BigDecimal valor = new BigDecimal("0.00");
-        for(ItemPedidoDTO item : itens) {
+        for (ItemPedidoDTO item : getItens()) {
             valor = valor.add(
                     item.getProduto().getPreco().multiply(
-                        new BigDecimal(item.getQuantidade())));
+                            new BigDecimal(item.getQuantidade())));
         }
         return valor;
     }
@@ -83,5 +85,30 @@ public class PedidoDTO {
 
     public void setCliente(ClienteDTO cliente) {
         this.cliente = cliente;
+    }
+
+    public Integer getQuantidadeItens() {
+        Integer total = 0;
+        for (ItemPedidoDTO item : getItens()) {
+            total += item.getQuantidade();
+        }
+        return total;
+    }
+
+    public void pagarPorBoleto() {
+        if (this.status == StatusPedido.AGUARDANDO_PAGAMENTO) {
+            this.pagamento = new PagamentoBoletoDTO(calcularValorPedido(),
+                    StatusPagamento.AGUARDANDO_AUTORIZACAO);
+        } else {
+            throw new IllegalStateException();
+        }
+    }
+
+    public void pagarPorPagSeguro() {
+        throw new UnsupportedOperationException();
+    }
+
+    public void pagarPorDebitoEmConta() {
+        throw new UnsupportedOperationException();
     }
 }

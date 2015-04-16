@@ -26,11 +26,11 @@ public class Pedido {
 	private Date dataPedido;
 	private Date dataPrevisaoEntrega;
 
-	public long getCdPedido() {
+	public Long getCdPedido() {
 		return cdPedido;
 	}
 
-	public void setCdPedido(long cdPedido) {
+	public void setCdPedido(Long cdPedido) {
 		this.cdPedido = cdPedido;
 	}
 
