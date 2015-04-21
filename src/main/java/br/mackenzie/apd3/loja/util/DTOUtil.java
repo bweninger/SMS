@@ -1,10 +1,12 @@
 package br.mackenzie.apd3.loja.util;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -22,13 +24,7 @@ public final class DTOUtil {
     public static <T> List<T> converterLista(List<? extends Object> src, Class<T> clazz) {
         List<T> target = new ArrayList<>(src.size());
         for (Object objSrc : src) {
-            T objTgt = null;
-            try {
-                objTgt = clazz.newInstance();
-            } catch (InstantiationException | IllegalAccessException e) {
-                System.out.println("Ocorreu um erro ao instanciar a classe destino : ");
-                e.printStackTrace();
-            }
+            T objTgt = BeanUtils.instantiate(clazz);
             copiarPropriedades(objSrc, objTgt, obterNomesAtributos(clazz));
             target.add(objTgt);
         }
@@ -46,25 +42,32 @@ public final class DTOUtil {
         for (final String propertyName : properties) {
             Class<?> sourceType = src.getPropertyType(propertyName);
             Class<?> targetType = trg.getPropertyType(propertyName);
-            if (src.getPropertyValue(propertyName) != null) {
-                if (targetType == sourceType) {
-                    trg.setPropertyValue(propertyName, src.getPropertyValue(propertyName));
-                } else if (source instanceof List &&
-                        target instanceof List) {
+            if (sourceType != null && targetType != null
+                    && src.getPropertyValue(propertyName) != null) {
+                if ((source instanceof List &&
+                        target instanceof List)) {
                     List collectionSrc = (List) source;
                     List collectionTgt = converterLista(collectionSrc,
                             ((ParameterizedType) target.getClass().
                                     getGenericSuperclass()).getActualTypeArguments()[0].getClass());
                     trg.setPropertyValue(propertyName, collectionTgt);
-                } else {
+                } else if (sourceType == List.class && targetType == List.class) {
+                    Field declaredField = null;
                     try {
-                        Object instance = targetType.newInstance();
-                        copiarPropriedades(src.getPropertyValue(propertyName), instance, obterNomesAtributos(sourceType));
-                        trg.setPropertyValue(propertyName, instance);
-                    } catch (IllegalAccessException | InstantiationException ex) {
-                        System.out.println("Ocorreu um erro ao copiar as propriedades dos beans: ");
-                        ex.printStackTrace();
+                        declaredField = target.getClass().getDeclaredField(propertyName);
+                    } catch (NoSuchFieldException e) {
+                        e.printStackTrace();
                     }
+                    ParameterizedType genericType = (ParameterizedType) declaredField.getGenericType();
+                    List listaTgt = converterLista((List) src.getPropertyValue(propertyName),
+                            (Class<?>) genericType.getActualTypeArguments()[0]);
+                    trg.setPropertyValue(propertyName, listaTgt);
+                } else if (targetType == sourceType) {
+                    trg.setPropertyValue(propertyName, src.getPropertyValue(propertyName));
+                } else {
+                    Object instance = BeanUtils.instantiate(targetType);
+                    copiarPropriedades(src.getPropertyValue(propertyName), instance, obterNomesAtributos(sourceType));
+                    trg.setPropertyValue(propertyName, instance);
                 }
             }
         }

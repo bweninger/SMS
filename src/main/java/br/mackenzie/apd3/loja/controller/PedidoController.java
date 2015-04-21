@@ -1,9 +1,14 @@
 package br.mackenzie.apd3.loja.controller;
 
+import br.mackenzie.apd3.loja.dto.ClienteDTO;
 import br.mackenzie.apd3.loja.dto.ItemPedidoDTO;
 import br.mackenzie.apd3.loja.dto.PedidoDTO;
+import br.mackenzie.apd3.loja.service.ClienteService;
+import com.fasterxml.jackson.databind.util.BeanUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,11 +19,6 @@ public class PedidoController {
 
     private PedidoDTO pedidoDTO = new PedidoDTO();
 
-    @RequestMapping(value = "/listar", method = RequestMethod.GET)
-    @ResponseBody
-    public String listarPedidos() {
-        return "Listando Pedidos";
-    }
 
     @RequestMapping(value = "/incluirProduto", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
@@ -32,10 +32,10 @@ public class PedidoController {
         this.pedidoDTO.fecharPedido();
     }
 
-    @RequestMapping(value = "/selecionarPagamento", method = RequestMethod.POST)
+    @RequestMapping(value = "/selecionarPagamento/{id}", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
-    public void selecionaPagamento(@RequestBody Integer tipoPagamento) {
-        switch (tipoPagamento) {
+    public void selecionarPagamento(@PathVariable("id") Integer idTipoPagamento) {
+        switch (idTipoPagamento) {
             case 1:
                 this.pedidoDTO.pagarPorBoleto();
                 break;

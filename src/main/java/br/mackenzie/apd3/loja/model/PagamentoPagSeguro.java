@@ -7,10 +7,4 @@ import javax.persistence.Entity;
 @DiscriminatorValue(value = "3")
 public class PagamentoPagSeguro extends Pagamento {
 
-	@Override
-	protected void pagar() {
-		// TODO Auto-generated method stub
-
-	}
-
 }

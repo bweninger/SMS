@@ -1,5 +1,8 @@
 package br.mackenzie.apd3.loja.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by bweninger on 15/04/2015.
  */
@@ -9,7 +12,7 @@ public class ClienteDTO {
     private String nome;
     private String email;
     private String cpf;
-    private String senha;
+    private List<EnderecoDTO> enderecos;
 
     public Long getId() {
         return id;
@@ -40,14 +43,21 @@ public class ClienteDTO {
     }
 
     public void setCpf(String cpf) {
-        this.cpf = cpf;
+        this.cpf = cpf.replaceAll("\\.","").replaceAll("-","");
     }
 
-    public String getSenha() {
-        return senha;
+    public List<EnderecoDTO> getEnderecos() {
+        return enderecos;
     }
 
-    public void setSenha(String senha) {
-        this.senha = senha;
+    public void setEnderecos(List<EnderecoDTO> enderecos) {
+        this.enderecos = enderecos;
+    }
+
+    public void adicionarEndereco(EnderecoDTO enderecoDTO) {
+        if(this.enderecos == null){
+            this.enderecos = new ArrayList<>();
+        }
+        this.enderecos.add(enderecoDTO);
     }
 }

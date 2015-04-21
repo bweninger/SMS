@@ -38,6 +38,7 @@ public class TestePagamento {
     @Test
     public void testePagarPorBoleto() {
         PedidoDTO pedidoDTO = criarPedido();
+        pedidoDTO.fecharPedido();
         pedidoDTO.pagarPorBoleto();
         assertTrue(pedidoDTO.getPagamento() instanceof PagamentoBoletoDTO);
         assertEquals(new BigDecimal("147.00"), pedidoDTO.getPagamento().getValor());

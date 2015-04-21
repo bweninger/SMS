@@ -22,7 +22,7 @@ public abstract class GenericDAOImpl<T, PK extends Serializable> implements Gene
     private Class<T> persistentClass;
 
     @PersistenceContext
-    private EntityManager entityManager;
+    protected EntityManager entityManager;
 
     @Override
     public T buscarPorChave(PK chave) {
@@ -42,6 +42,7 @@ public abstract class GenericDAOImpl<T, PK extends Serializable> implements Gene
     public void incluir(T entidade) {
         this.entityManager.persist(entidade);
         this.entityManager.flush();
+        this.entityManager.detach(entidade);
     }
 
     @Override

@@ -4,13 +4,7 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
-@DiscriminatorValue(value="1")
+@DiscriminatorValue(value = "1")
 public class PagamentoBoleto extends Pagamento {
-
-	@Override
-	protected void pagar() {
-		// TODO Auto-generated method stub
-		
-	}
 
 }

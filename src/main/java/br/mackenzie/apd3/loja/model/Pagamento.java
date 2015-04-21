@@ -39,8 +39,6 @@ public abstract class Pagamento {
         this.status = status;
     }
 
-    protected abstract void pagar();
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

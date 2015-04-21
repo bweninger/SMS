@@ -50,7 +50,11 @@ public class PedidoDTO {
     }
 
     public void adicionarItem(ItemPedidoDTO itemPedidoDTO) {
-        this.getItens().add(itemPedidoDTO);
+        if (this.status == StatusPedido.CARRINHO_DE_COMPRAS) {
+            this.getItens().add(itemPedidoDTO);
+        } else {
+            throw new IllegalStateException();
+        }
     }
 
     public void fecharPedido() {
@@ -110,5 +114,9 @@ public class PedidoDTO {
 
     public void pagarPorDebitoEmConta() {
         throw new UnsupportedOperationException();
+    }
+
+    public void adicionarEnderecoEntrega(EnderecoDTO enderecoDTO){
+        this.getCliente().adicionarEndereco(enderecoDTO);
     }
 }
