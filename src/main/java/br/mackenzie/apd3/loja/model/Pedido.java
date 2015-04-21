@@ -1,7 +1,6 @@
 package br.mackenzie.apd3.loja.model;
 
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.*;
 
@@ -11,20 +10,21 @@ public class Pedido {
 		
 	@Id
 	@Column(name = "cdPedido")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long cdPedido;
 	@ManyToOne
 	@JoinColumn(name="idCliente", referencedColumnName="idCliente")
 	private Cliente cliente;
 	@Enumerated(EnumType.ORDINAL)
+	@Column(name = "idStatusPedido")
 	private StatusPedido status;
-	@OneToMany(mappedBy="pk.pedido")	
-	private List<ItemPedido> itens;
 	@ManyToOne
 	@JoinColumn(name="cdPagamento", referencedColumnName="cdPagamento")
 	private Pagamento pagamento;
 	private Date dataPedido;
 	private Date dataPrevisaoEntrega;
+	@ManyToOne
+	@JoinColumn(name="idEndereco", referencedColumnName = "idEndereco")
+	private Endereco enderecoEntrega;
 
 	public Long getCdPedido() {
 		return cdPedido;
@@ -48,14 +48,6 @@ public class Pedido {
 
 	public void setStatus(StatusPedido status) {
 		this.status = status;
-	}
-
-	public List<ItemPedido> getItens() {
-		return itens;
-	}
-
-	public void setItens(List<ItemPedido> itens) {
-		this.itens = itens;
 	}
 
 	public Pagamento getPagamento() {
@@ -82,4 +74,11 @@ public class Pedido {
 		this.dataPrevisaoEntrega = dataPrevisaoEntrega;
 	}
 
+	public Endereco getEnderecoEntrega() {
+		return enderecoEntrega;
+	}
+
+	public void setEnderecoEntrega(Endereco endereco) {
+		this.enderecoEntrega = endereco;
+	}
 }

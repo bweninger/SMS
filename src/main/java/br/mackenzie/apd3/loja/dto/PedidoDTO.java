@@ -4,7 +4,10 @@ import br.mackenzie.apd3.loja.model.StatusPagamento;
 import br.mackenzie.apd3.loja.model.StatusPedido;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -17,6 +20,8 @@ public class PedidoDTO {
     private PagamentoDTO pagamento;
     private List<ItemPedidoDTO> itens;
     private ClienteDTO cliente;
+    private EnderecoDTO enderecoEntrega;
+    private Date dataPedido;
 
     public PedidoDTO() {
         this.status = StatusPedido.CARRINHO_DE_COMPRAS;
@@ -59,7 +64,7 @@ public class PedidoDTO {
 
     public void fecharPedido() {
         if (status == StatusPedido.CARRINHO_DE_COMPRAS) {
-            this.status = StatusPedido.AGUARDANDO_PAGAMENTO;
+            this.status = StatusPedido.AGUARDANDO_DADOS_ENTREGA;
         } else {
             throw new IllegalStateException();
         }
@@ -116,7 +121,54 @@ public class PedidoDTO {
         throw new UnsupportedOperationException();
     }
 
-    public void adicionarEnderecoEntrega(EnderecoDTO enderecoDTO){
-        this.getCliente().adicionarEndereco(enderecoDTO);
+    public EnderecoDTO getEnderecoEntrega() {
+        return enderecoEntrega;
     }
+
+    public void setEnderecoEntrega(EnderecoDTO enderecoEntrega) {
+        this.enderecoEntrega = enderecoEntrega;
+    }
+
+    public Date getDataPedido() {
+        return dataPedido;
+    }
+
+    public void setDataPedido(Date dataPedido) {
+        this.dataPedido = dataPedido;
+    }
+
+    public void incluirDadosEntrega(ClienteDTO cliente, EnderecoDTO endereco) {
+        if (this.status == StatusPedido.AGUARDANDO_DADOS_ENTREGA) {
+            this.status = StatusPedido.AGUARDANDO_PAGAMENTO;
+            this.cliente = cliente;
+            this.enderecoEntrega = endereco;
+        } else {
+            throw new IllegalStateException();
+        }
+    }
+
+    public Long gerarNumeroPedido() {
+        if (this.status == StatusPedido.AGUARDANDO_PAGAMENTO) {
+            Calendar cal = Calendar.getInstance();
+            this.dataPedido = cal.getTime();
+            StringBuilder codigoPedidoStr = new StringBuilder();
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+            codigoPedidoStr.append(sdf.format(this.dataPedido));
+            codigoPedidoStr.append(this.cliente.getId());
+            codigoPedidoStr.append(gerarCodigoItens());
+            this.cdPedido = Long.parseLong(codigoPedidoStr.toString());
+            return this.cdPedido;
+        } else {
+            throw new IllegalStateException();
+        }
+    }
+
+    private Long gerarCodigoItens() {
+        Long result = 0L;
+        for (ItemPedidoDTO itemPedidoDTO : getItens()) {
+            result += itemPedidoDTO.getProduto().getId() * itemPedidoDTO.getQuantidade();
+        }
+        return result;
+    }
+
 }

@@ -35,17 +35,7 @@ public class TestePagamento {
         assertTrue(pagamento1.equals(pagamento2));
     }
 
-    @Test
-    public void testePagarPorBoleto() {
-        PedidoDTO pedidoDTO = criarPedido();
-        pedidoDTO.fecharPedido();
-        pedidoDTO.pagarPorBoleto();
-        assertTrue(pedidoDTO.getPagamento() instanceof PagamentoBoletoDTO);
-        assertEquals(new BigDecimal("147.00"), pedidoDTO.getPagamento().getValor());
-        assertEquals(StatusPagamento.AGUARDANDO_AUTORIZACAO, pedidoDTO.getPagamento().getStatus());
-    }
-
-    private PedidoDTO criarPedido() {
+   private PedidoDTO criarPedido() {
         ProdutoDTO produtoDTO = new ProdutoDTO();
         produtoDTO.setId(4L);
         produtoDTO.setPreco(new BigDecimal("49.00"));

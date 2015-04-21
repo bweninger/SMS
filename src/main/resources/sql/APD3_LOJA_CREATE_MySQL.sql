@@ -1,81 +1,90 @@
 delimiter $$
 
-CREATE DATABASE `APD3Loja` /*!40100 DEFAULT CHARACTER SET utf8 */$$
+CREATE DATABASE `apd3loja` /*!40100 DEFAULT CHARACTER SET utf8 */$$
 
-CREATE  TABLE `APD3Loja`.`Cliente` (
-  `idCliente` BIGINT NOT NULL AUTO_INCREMENT ,
-  `nome` VARCHAR(50) NOT NULL ,
-  `email` VARCHAR(50) NOT NULL ,
-  `cpf` VARCHAR(11) NOT NULL ,
-  `senha` VARCHAR(50) NOT NULL ,
-  PRIMARY KEY (`idCliente`) ,
-  UNIQUE INDEX `email_UNIQUE` (`email` ASC) ,
-  UNIQUE INDEX `cpf_UNIQUE` (`cpf` ASC) );$$
+delimiter $$
 
-CREATE  TABLE `APD3Loja`.`Endereco` (
-  `idEndereco` BIGINT NOT NULL AUTO_INCREMENT ,
-  `logradouro` VARCHAR(80) NOT NULL ,
-  `numero` INT NOT NULL ,
-  `complemento` VARCHAR(10) NULL ,
-  `cep` VARCHAR(8) NOT NULL ,
-  `idCliente` BIGINT NOT NULL ,
-  PRIMARY KEY (`idEndereco`) ,
-  INDEX `endereco_cliente_idx` (`idCliente` ASC) ,
-  CONSTRAINT `endereco_cliente`
-    FOREIGN KEY (`idCliente` )
-    REFERENCES `APD3Loja`.`cliente` (`idCliente` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION);$$
+CREATE TABLE `categoria` (
+  `idCategoria` bigint(20) NOT NULL AUTO_INCREMENT,
+  `descricao` varchar(20) NOT NULL,
+  PRIMARY KEY (`idCategoria`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8$$
 
-CREATE  TABLE `apd3loja`.`Categoria` (
-  `idCategoria` BIGINT NOT NULL AUTO_INCREMENT ,
-  `descricao` VARCHAR(20) NOT NULL ,
-  PRIMARY KEY (`idCategoria`) );$$
+delimiter $$
 
-CREATE  TABLE `apd3loja`.`Produto` (
-  `idProduto` BIGINT NOT NULL AUTO_INCREMENT ,
-  `nome` VARCHAR(100) NOT NULL ,
-  `preco` DECIMAL(6,2) NOT NULL ,
-  `descricao` VARCHAR(500) NULL ,
-  `urlFoto` VARCHAR(50) NULL ,
-  `avaliacaoMedia` INT NOT NULL ,
-  `idCategoria` BIGINT NOT NULL ,
-  PRIMARY KEY (`idProduto`) ,
-  INDEX `produto_categoria_idx` (`idCategoria` ASC) ,
-  CONSTRAINT `produto_categoria`
-    FOREIGN KEY (`idCategoria` )
-    REFERENCES `apd3loja`.`categoria` (`idCategoria` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION);$$
+CREATE TABLE `produto` (
+  `idProduto` bigint(20) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(100) NOT NULL,
+  `preco` decimal(6,2) NOT NULL,
+  `descricao` varchar(500) DEFAULT NULL,
+  `urlFoto` varchar(50) DEFAULT NULL,
+  `avaliacaoMedia` int(11) NOT NULL,
+  `idCategoria` bigint(20) NOT NULL,
+  PRIMARY KEY (`idProduto`),
+  KEY `produto_categoria_idx` (`idCategoria`),
+  CONSTRAINT `produto_categoria` FOREIGN KEY (`idCategoria`) REFERENCES `categoria` (`idCategoria`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8$$
 
-CREATE  TABLE `apd3loja`.`Pagamento` (
-  `cdPagamento` BIGINT NOT NULL AUTO_INCREMENT ,
-  `valor` DECIMAL(6,2) NOT NULL ,
-  `idStatusPagamento` BIGINT NOT NULL ,
-	`tipoPagamento` INT NOT NULL ,	
-  PRIMARY KEY (`cdPagamento`) ,
-  INDEX `pagamento_status_idx` (`idStatusPagamento` ASC)); $$
+delimiter $$
+
+CREATE TABLE `cliente` (
+  `idCliente` bigint(20) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(50) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `cpf` varchar(11) NOT NULL,
+  PRIMARY KEY (`idCliente`,`nome`),
+  UNIQUE KEY `email_UNIQUE` (`email`),
+  UNIQUE KEY `cpf_UNIQUE` (`cpf`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8$$
+
+delimiter $$
+
+CREATE TABLE `endereco` (
+  `idEndereco` bigint(20) NOT NULL AUTO_INCREMENT,
+  `logradouro` varchar(80) NOT NULL,
+  `numero` int(11) NOT NULL,
+  `complemento` varchar(10) DEFAULT NULL,
+  `cep` varchar(8) NOT NULL,
+  `idCliente` bigint(20) NOT NULL,
+  PRIMARY KEY (`idEndereco`),
+  KEY `endereco_cliente_idx` (`idCliente`),
+  CONSTRAINT `endereco_cliente` FOREIGN KEY (`idCliente`) REFERENCES `cliente` (`idCliente`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8$$
+
+delimiter $$
+
+CREATE TABLE `pagamento` (
+  `cdPagamento` bigint(20) NOT NULL AUTO_INCREMENT,
+  `valor` decimal(6,2) NOT NULL,
+  `idStatusPagamento` bigint(20) NOT NULL,
+  `tipoPagamento` int(11) NOT NULL,
+  PRIMARY KEY (`cdPagamento`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8$$
+
+delimiter $$
 
 CREATE TABLE `pedido` (
-  `cdPedido` bigint(20) NOT NULL AUTO_INCREMENT ,
+  `cdPedido` bigint(50) NOT NULL,
   `idCliente` bigint(20) NOT NULL,
   `idEndereco` bigint(20) NOT NULL,
   `dataPedido` date NOT NULL,
-  `dataPrevisaoEntrega` date NOT NULL,
+  `dataPrevisaoEntrega` date DEFAULT NULL,
   `idStatusPedido` bigint(20) NOT NULL,
   `cdPagamento` bigint(20) NOT NULL,
   PRIMARY KEY (`cdPedido`),
   KEY `pedido_cliente_idx` (`idCliente`),
   KEY `pedido_endereco_idx` (`idEndereco`),
   KEY `pedido_pagamento_idx` (`cdPagamento`),
-  CONSTRAINT `pedido_pagamento` FOREIGN KEY (`cdPagamento`) REFERENCES `pagamento` (`cdPagamento`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `pedido_cliente` FOREIGN KEY (`idCliente`) REFERENCES `cliente` (`idCliente`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `pedido_endereco` FOREIGN KEY (`idEndereco`) REFERENCES `endereco` (`idEndereco`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `pedido_endereco` FOREIGN KEY (`idEndereco`) REFERENCES `endereco` (`idEndereco`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `pedido_pagamento` FOREIGN KEY (`cdPagamento`) REFERENCES `pagamento` (`cdPagamento`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8$$
 
-CREATE TABLE `apd3loja`.`item_pedido` (
+delimiter $$
+
+CREATE TABLE `item_pedido` (
   `idProduto` bigint(20) NOT NULL,
-  `idPedido` bigint(20) NOT NULL,
+  `idPedido` bigint(50) NOT NULL,
   `quantidade` int(11) NOT NULL,
   `comentario` varchar(200) DEFAULT NULL,
   `avaliacao` int(11) DEFAULT NULL,

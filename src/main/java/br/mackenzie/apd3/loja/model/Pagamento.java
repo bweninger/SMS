@@ -13,6 +13,7 @@ public abstract class Pagamento {
     protected Long cdPagamento;
     protected BigDecimal valor;
     @Enumerated(EnumType.ORDINAL)
+    @Column(name = "idStatusPagamento")
     protected StatusPagamento status;
 
     public Long getCdPagamento() {

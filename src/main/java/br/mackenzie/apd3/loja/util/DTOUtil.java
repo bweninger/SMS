@@ -1,15 +1,21 @@
 package br.mackenzie.apd3.loja.util;
 
+import br.mackenzie.apd3.loja.dto.PagamentoBoletoDTO;
+import br.mackenzie.apd3.loja.dto.PagamentoDTO;
+import br.mackenzie.apd3.loja.dto.PagamentoDebitoContaDTO;
+import br.mackenzie.apd3.loja.dto.PagamentoPagSeguroDTO;
+import br.mackenzie.apd3.loja.model.Pagamento;
+import br.mackenzie.apd3.loja.model.PagamentoBoleto;
+import br.mackenzie.apd3.loja.model.PagamentoDebitoConta;
+import br.mackenzie.apd3.loja.model.PagamentoPagSeguro;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -65,7 +71,12 @@ public final class DTOUtil {
                 } else if (targetType == sourceType) {
                     trg.setPropertyValue(propertyName, src.getPropertyValue(propertyName));
                 } else {
-                    Object instance = BeanUtils.instantiate(targetType);
+                    Object instance = null;
+                    if (src.getPropertyValue(propertyName) instanceof PagamentoDTO) {
+                        instance = obterInstanciaPagamento((PagamentoDTO) src.getPropertyValue(propertyName));
+                    } else {
+                        instance = BeanUtils.instantiate(targetType);
+                    }
                     copiarPropriedades(src.getPropertyValue(propertyName), instance, obterNomesAtributos(sourceType));
                     trg.setPropertyValue(propertyName, instance);
                 }
@@ -81,5 +92,17 @@ public final class DTOUtil {
             fieldNames.add(field.getName());
         }
         return fieldNames;
+    }
+
+    private static Pagamento obterInstanciaPagamento(PagamentoDTO dto) {
+        if (dto instanceof PagamentoBoletoDTO) {
+            return new PagamentoBoleto();
+        } else if (dto instanceof PagamentoDebitoContaDTO) {
+            return new PagamentoDebitoConta();
+        } else if (dto instanceof PagamentoPagSeguroDTO) {
+            return new PagamentoPagSeguro();
+        } else {
+            return null;
+        }
     }
 }
