@@ -15,6 +15,8 @@ Java EE 6
 Spring MVC 4
 Hibernate 4
 Maven 3
-Apache Tomcat 7
+Apache Tomcat 8
+AngularJS
+BootStrap
 
 
