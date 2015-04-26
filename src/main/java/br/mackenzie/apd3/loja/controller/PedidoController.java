@@ -1,5 +1,6 @@
 package br.mackenzie.apd3.loja.controller;
 
+import br.mackenzie.apd3.loja.builder.BoletoBuilder;
 import br.mackenzie.apd3.loja.dto.ClienteDTO;
 import br.mackenzie.apd3.loja.dto.EnderecoDTO;
 import br.mackenzie.apd3.loja.dto.ItemPedidoDTO;
@@ -7,12 +8,16 @@ import br.mackenzie.apd3.loja.dto.PedidoDTO;
 import br.mackenzie.apd3.loja.service.ClienteService;
 import br.mackenzie.apd3.loja.service.PedidoService;
 import com.fasterxml.jackson.databind.util.BeanUtil;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
 
 @Controller
 @RequestMapping(value = "/pedidos")
@@ -71,5 +76,24 @@ public class PedidoController {
         Long nroPedido = this.pedidoDTO.gerarNumeroPedido();
         this.pedidoService.cadastrarPedido(pedidoDTO);
         return "Pedido n." + nroPedido + " gerado com sucesso.";
+    }
+
+    @RequestMapping(value = "/gerarBoleto/{codigoPedido}", method = RequestMethod.GET)
+    public void gerarBoleto(@PathVariable("codigoPedido") Long codigoPedido, HttpServletResponse response) {
+        PedidoDTO pedidoDTO = this.pedidoService.buscarPorCodigoPedido(codigoPedido);
+        BoletoBuilder builder = new BoletoBuilder(pedidoDTO);
+        byte[] boletoPdf = builder.construirBoleto();
+        InputStream is = null;
+        try {
+            is = new ByteArrayInputStream(boletoPdf);
+            IOUtils.copy(is, response.getOutputStream());
+            response.flushBuffer();
+        } catch (IOException ioe) {
+            System.out.println("Problemas ao gerar o boleto");
+            ioe.printStackTrace();
+        } finally {
+            if (is != null)
+                IOUtils.closeQuietly(is);
+        }
     }
 }

@@ -8,4 +8,6 @@ import br.mackenzie.apd3.loja.dto.PedidoDTO;
 public interface PedidoService {
 
     void cadastrarPedido(PedidoDTO pedido);
+
+    PedidoDTO buscarPorCodigoPedido(Long codigoPedido);
 }

@@ -46,4 +46,12 @@ public class PedidoServiceImpl implements PedidoService {
             this.itemPedidoDAO.incluir(itemPedido);
         }
     }
+
+    @Override
+    public PedidoDTO buscarPorCodigoPedido(Long codigoPedido) {
+        Pedido pedido = this.pedidoDao.buscarPorChave(codigoPedido);
+        PedidoDTO dto = new PedidoDTO();
+        DTOUtil.copiarPropriedades(pedido, dto, DTOUtil.obterNomesAtributos(PedidoDTO.class));
+        return dto;
+    }
 }

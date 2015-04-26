@@ -74,7 +74,7 @@ public class PedidoDTO {
         return pagamento;
     }
 
-    private void setPagamento(PagamentoDTO pagamento) {
+    public void setPagamento(PagamentoDTO pagamento) {
         this.pagamento = pagamento;
     }
 

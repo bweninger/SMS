@@ -74,6 +74,8 @@ public final class DTOUtil {
                     Object instance = null;
                     if (src.getPropertyValue(propertyName) instanceof PagamentoDTO) {
                         instance = obterInstanciaPagamento((PagamentoDTO) src.getPropertyValue(propertyName));
+                    } else if (src.getPropertyValue(propertyName) instanceof Pagamento) {
+                        instance = obterInstanciaPagamentoDTO((Pagamento) src.getPropertyValue(propertyName));
                     } else {
                         instance = BeanUtils.instantiate(targetType);
                     }
@@ -101,6 +103,18 @@ public final class DTOUtil {
             return new PagamentoDebitoConta();
         } else if (dto instanceof PagamentoPagSeguroDTO) {
             return new PagamentoPagSeguro();
+        } else {
+            return null;
+        }
+    }
+
+    private static PagamentoDTO obterInstanciaPagamentoDTO(Pagamento dto) {
+        if (dto instanceof PagamentoBoleto) {
+            return new PagamentoBoletoDTO();
+        } else if (dto instanceof PagamentoDebitoConta) {
+            return new PagamentoDebitoContaDTO();
+        } else if (dto instanceof PagamentoPagSeguro) {
+            return new PagamentoPagSeguroDTO();
         } else {
             return null;
         }

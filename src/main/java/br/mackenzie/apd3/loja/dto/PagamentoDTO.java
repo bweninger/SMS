@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 /**
  * Created by bweninger on 15/04/2015.
  */
-public class PagamentoDTO {
+public abstract class PagamentoDTO {
     
     protected Long cdPagamento;
     protected BigDecimal valor;
