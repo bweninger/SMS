@@ -5,10 +5,10 @@ O objetivo deste projeto é criar uma representação de loja online para futura
 No primeiro momento, a loja deve permitir o pagamento de um pedido por Boleto Bancário.
 
 Integrantes:
-Bruno César Weninger
-Julio Cesar Maciel
-Leopoldo Lucas
-Luiz Guilherme Margherito
+Bruno César Weninger,
+Julio Cesar Maciel,
+Leopoldo Lucas,
+Luiz Guilherme Margherito,
 
 Tecnologias utilizadas:
 Java EE 6
