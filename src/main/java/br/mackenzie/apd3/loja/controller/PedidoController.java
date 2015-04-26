@@ -55,7 +55,7 @@ public class PedidoController {
                 this.pedidoDTO.pagarPorPagSeguro();
                 break;
             default:
-                throw new IllegalArgumentException("Forma de pagamento inválida");
+                throw new IllegalArgumentException("Forma de pagamento invalida");
         }
     }
 
