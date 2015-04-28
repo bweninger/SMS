@@ -22,7 +22,7 @@ import java.io.*;
 @Controller
 @RequestMapping(value = "/pedidos")
 @Scope("session")
-public class PedidoController {
+public class PedidoController implements Serializable {
 
     private PedidoDTO pedidoDTO = new PedidoDTO();
 

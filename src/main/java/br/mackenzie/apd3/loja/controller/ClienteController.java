@@ -9,12 +9,14 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.Serializable;
+
 /**
  * Created by BWeninger on 20/04/2015.
  */
 @Controller
 @RequestMapping(value = "/clientes")
-public class ClienteController {
+public class ClienteController  implements Serializable {
 
     @Autowired
     private ClienteService clienteService;

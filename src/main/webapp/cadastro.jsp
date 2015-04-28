@@ -37,7 +37,7 @@
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li><a href="/loja/index.jsp">Home</a></li>
-                <li><a href="/loja/cadastro.jsp">Cadastro</a></li>
+                <li><a href="/loja/cadastro.jsp">Cadastro Cliente</a></li>
                 <li><a href="#contact">Sobre</a></li>
             </ul>
         </div>
@@ -46,47 +46,49 @@
 </div>
 
 <div class="container">
-    <form id="formProdutos">
-        <div ng-controller="produtos">
-            <div class="row">
-                <div class="col-md-30">
-                    <table id="tableData" class="table">
-                        <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Nome</th>
-                            <th>Preço</th>
-                            <th>Categoria</th>
-                            <th>Foto</th>
-                            <th>Descrição</th>
-                            <th>Comprar?</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr ng-repeat="produto in produtos">
-                            <td>{{produto.id}}<input type="hidden" value="{{produto.id}}"/></td>
-                            <td>{{produto.nome}}</td>
-                            <td>R$ {{produto.preco}}</td>
-                            <td>{{produto.categoria.descricao}}</td>
-                            <td><img src="{{produto.urlFoto}}" width="100" height="100" alt="teste"></td>
-                            <td>{{produto.descricao}}</td>
-                            <td>
-                                <button id="btnCompra" type="button" class="btn btn-primary" onclick="comprar({{produto.id}},{{produto.preco}});">
-                                    Comprar?
-                                </button>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    <div id="botoes">
-                        <button type="submit" class="btn btn-primary" onclick="fecharPedido()">
-                            Fechar Pedido
-                        </button>
-                    </div>
+    <form id="formCliente" class="form-horizontal">
+        <fieldset>
+
+            <!-- Form Name -->
+            <legend>Dados do cliente</legend>
+
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="nome">Nome:</label>
+                <div class="col-md-4">
+                    <input id="nome" name="nome" type="text" placeholder="Joao da Silva" class="form-control input-md" required="true">
+
                 </div>
             </div>
-        </div>
+
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="email">Email:</label>
+                <div class="col-md-4">
+                    <input id="email" name="email" type="text" placeholder="jsilva@loja.apd3" class="form-control input-md" required="true">
+
+                </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="cpf">CPF</label>
+                <div class="col-md-4">
+                    <input id="cpf" name="cpf" type="text" placeholder="XXX.XXX.XXX-XX" class="form-control input-md" required="true">
+                </div>
+            </div>
+
+            <!-- Button -->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="btnCadastrar"></label>
+                <div class="col-md-4">
+                    <button id="btnCadastrar" name="btnCadastrar" class="btn btn-primary" onclick="incluiDadosCliente()">Enviar</button>
+                </div>
+            </div>
+
+        </fieldset>
     </form>
+
 </div>
 <!-- /.container -->
 <!-- script references --></body>

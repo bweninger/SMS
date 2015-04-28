@@ -9,11 +9,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Controller
 @RequestMapping(value = "/produtos")
-public class ProdutoController {
+public class ProdutoController implements Serializable {
 
     @Autowired
     private ProdutoService produtoService;
