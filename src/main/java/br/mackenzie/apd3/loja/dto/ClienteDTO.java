@@ -1,12 +1,13 @@
 package br.mackenzie.apd3.loja.dto;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by bweninger on 15/04/2015.
  */
-public class ClienteDTO {
+public class ClienteDTO implements Serializable {
 
     private Long id;
     private String nome;

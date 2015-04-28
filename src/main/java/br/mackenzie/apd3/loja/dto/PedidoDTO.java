@@ -3,6 +3,7 @@ package br.mackenzie.apd3.loja.dto;
 import br.mackenzie.apd3.loja.model.StatusPagamento;
 import br.mackenzie.apd3.loja.model.StatusPedido;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ import java.util.List;
 /**
  * Created by bweninger on 15/04/2015.
  */
-public class PedidoDTO {
+public class PedidoDTO implements Serializable{
 
     private Long cdPedido;
     private StatusPedido status;

@@ -46,49 +46,66 @@
 </div>
 
 <div class="container">
-    <form id="formCliente" class="form-horizontal">
+    <form class="form-horizontal">
+        <input type="hidden" value="${idCliente}" name="idCliente"/>
         <fieldset>
-
             <!-- Form Name -->
-            <legend>Dados do cliente</legend>
+            <legend>Endereço de entrega</legend>
 
             <!-- Text input-->
             <div class="form-group">
-                <label class="col-md-4 control-label" for="nome">Nome:</label>
+                <label class="col-md-4 control-label" for="logradouro">Logradouro:</label>
+
                 <div class="col-md-4">
-                    <input id="nome" name="nome" type="text" placeholder="Joao da Silva" class="form-control input-md" required="true">
+                    <input id="logradouro" name="logradouro" type="text" placeholder="R. dos Bobos"
+                           class="form-control input-md">
 
                 </div>
             </div>
 
             <!-- Text input-->
             <div class="form-group">
-                <label class="col-md-4 control-label" for="email">Email:</label>
+                <label class="col-md-4 control-label" for="numero">No.</label>
+
                 <div class="col-md-4">
-                    <input id="email" name="email" type="text" placeholder="jsilva@loja.apd3" class="form-control input-md" required="true">
-P
+                    <input id="numero" name="numero" type="text" placeholder="0" class="form-control input-md">
+
                 </div>
             </div>
 
             <!-- Text input-->
             <div class="form-group">
-                <label class="col-md-4 control-label" for="cpf">CPF</label>
+                <label class="col-md-4 control-label" for="complemento">Complemento</label>
+
                 <div class="col-md-4">
-                    <input id="cpf" name="cpf" type="text" placeholder="XXX.XXX.XXX-XX" class="form-control input-md" required="true">
+                    <input id="complemento" name="complemento" type="text" placeholder="Casa 2"
+                           class="form-control input-md">
+
+                </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="cep">CEP</label>
+
+                <div class="col-md-4">
+                    <input id="cep" name="cep" type="text" placeholder="12345-140" class="form-control input-md"
+                           required="">
+
                 </div>
             </div>
 
             <!-- Button -->
             <div class="form-group">
-                <label class="col-md-4 control-label" for="btnCadastrar"></label>
+                <label class="col-md-4 control-label" for="btnEndereco"></label>
+
                 <div class="col-md-4">
-                    <button id="btnCadastrar" name="btnCadastrar" class="btn btn-primary" onclick="incluiDadosCliente()">Enviar</button>
+                    <button id="btnEndereco" name="btnEndereco" class="btn btn-primary" onclick="incluirEndereco()  ">Concluir Pedido</button>
                 </div>
             </div>
 
         </fieldset>
     </form>
-
 </div>
 <!-- /.container -->
 <!-- script references --></body>

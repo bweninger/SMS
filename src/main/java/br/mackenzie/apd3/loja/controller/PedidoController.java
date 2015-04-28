@@ -75,7 +75,7 @@ public class PedidoController implements Serializable {
     public String concluirPedido() {
         Long nroPedido = this.pedidoDTO.gerarNumeroPedido();
         this.pedidoService.cadastrarPedido(pedidoDTO);
-        return "Pedido n." + nroPedido + " gerado com sucesso.";
+        return nroPedido.toString();
     }
 
     @RequestMapping(value = "/gerarBoleto/{codigoPedido}", method = RequestMethod.GET)
