@@ -1,6 +1,7 @@
 package br.mackenzie.apd3.loja.service;
 
 
+import br.mackenzie.apd3.loja.dto.ProdutoRestDTO;
 import br.mackenzie.apd3.loja.model.Produto;
 
 import java.util.List;
@@ -11,4 +12,5 @@ public interface ProdutoService {
 
     void cadastrarProduto(Produto novoProduto);
 
+    List<ProdutoRestDTO> listarProdutosRest();
 }
