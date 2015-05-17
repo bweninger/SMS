@@ -66,7 +66,7 @@
                 <label class="col-md-4 control-label" for="email">Email:</label>
                 <div class="col-md-4">
                     <input id="email" name="email" type="text" placeholder="jsilva@loja.apd3" class="form-control input-md" required="true">
-P
+
                 </div>
             </div>
 
