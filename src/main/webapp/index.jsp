@@ -59,21 +59,24 @@
                             <th>Categoria</th>
                             <th>Foto</th>
                             <th>Descrição</th>
-                            <th>Comprar?</th>
+                            <th>Ações</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr ng-repeat="produto in produtos">
                             <td>{{produto.id}}<input type="hidden" value="{{produto.id}}"/></td>
                             <td>{{produto.nome}}</td>
-                            <td>R$ {{produto.preco}}</td>
+                            <td>R$ {{produto.precoStr}}</td>
                             <td>{{produto.categoria.descricao}}</td>
                             <td><img src="{{produto.urlFoto}}" width="100" height="100" alt="teste"></td>
                             <td>{{produto.descricao}}</td>
                             <td>
                                 <button id="btnCompra" type="button" class="btn btn-primary" onclick="comprar({{produto.id}},{{produto.preco}});">
-                                    Comprar?
+                                    <span class="glyphicon glyphicon-shopping-cart"></span> Adicionar ao Carrinho
                                 </button>
+                                <a id="btnDetalhe" type="button" class="btn btn-primary" href="/loja/produto.jsp?idProduto={{produto.id}}">
+                                    <span class="glyphicon glyphicon-plus">    </span> Ver detalhes
+                                </a>
                             </td>
                         </tr>
                         </tbody>

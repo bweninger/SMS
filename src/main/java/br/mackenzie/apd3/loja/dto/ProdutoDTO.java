@@ -4,6 +4,7 @@ import br.mackenzie.apd3.loja.model.Categoria;
 import br.mackenzie.apd3.loja.model.Produto;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 /**
  * Created by BWeninger on 11/04/2015.
@@ -72,6 +73,10 @@ public class ProdutoDTO {
 
     public void setAvaliacaoMedia(Integer avaliacaoMedia) {
         this.avaliacaoMedia = avaliacaoMedia;
+    }
+
+    public String getPrecoStr(){
+        return this.preco.setScale(2, RoundingMode.HALF_UP).toString();
     }
 
 }

@@ -8,9 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping(value = "/produtos")
@@ -44,4 +47,10 @@ public class ProdutoController implements Serializable {
         return novoProduto;
     }
 
+    @RequestMapping(value = "/detalhes/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public ProdutoDTO detalharProduto(@PathVariable("id") Long idProduto) {
+        ProdutoDTO produtoDTO = this.produtoService.detalharProduto(idProduto);
+        return produtoDTO;
+    }
 }

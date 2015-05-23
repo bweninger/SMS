@@ -33,18 +33,4 @@ public class ProdutoRestController {
         return listaDto;
     }
 
-        /*@RequestMapping("/imagem/{url}")
-    public ResponseEntity<byte[]> obterImagem(HttpServletRequest request, @PathVariable("url") String urlImagem)
-            throws IOException {
-        InputStream inputStream = request.getServletContext().getResourceAsStream("/img/" + urlImagem);
-
-        final HttpHeaders headers = new HttpHeaders();
-        if (urlImagem.endsWith(".jpg")) {
-            headers.setContentType(MediaType.IMAGE_JPEG);
-        } else if (urlImagem.endsWith(".png")) {
-            headers.setContentType(MediaType.IMAGE_PNG);
-        }
-
-        return new ResponseEntity<byte[]>(IOUtils.toByteArray(inputStream), headers, HttpStatus.CREATED);
-    }*/
 }

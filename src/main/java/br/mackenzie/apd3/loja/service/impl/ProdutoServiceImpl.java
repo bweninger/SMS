@@ -1,7 +1,9 @@
 package br.mackenzie.apd3.loja.service.impl;
 
+import br.mackenzie.apd3.loja.dto.ProdutoDTO;
 import br.mackenzie.apd3.loja.dto.ProdutoRestDTO;
 import br.mackenzie.apd3.loja.model.Produto;
+import br.mackenzie.apd3.loja.util.DTOUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,12 +40,20 @@ public class ProdutoServiceImpl implements ProdutoService {
 			ProdutoRestDTO produtoRest = new ProdutoRestDTO();
             produtoRest.setCodigo(produto.getId());
             produtoRest.setDetalhes(produto.getDescricao());
-            produtoRest.setImagem(produto.getUrlFoto().replace("img/",""));
+            produtoRest.setImagem(produto.getUrlFoto());
             produtoRest.setNome(produto.getNome());
             produtoRest.setPreco(produto.getPreco());
             produtosRest.add(produtoRest);
         }
 
         return produtosRest;
+    }
+
+    @Override
+    public ProdutoDTO detalharProduto(Long idProduto) {
+        Produto produto = this.produtoDAO.buscarPorChave(idProduto);
+        ProdutoDTO retorno = new ProdutoDTO();
+        DTOUtil.copiarPropriedades(produto, retorno, DTOUtil.obterNomesAtributos(ProdutoDTO.class));
+        return retorno;
     }
 }
