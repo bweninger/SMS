@@ -37,7 +37,7 @@ function fecharPedido() {
         url: "/loja/pedidos/fecharPedido.html",
         success: function () {
             alert('Pedido fechado com sucesso.');
-            window.location.href = "/cliente.jsp"
+            window.location.href = "/loja/cliente.jsp"
         }
     });
 }

@@ -15,7 +15,7 @@ $(document).ready(function () {
         data: JSON.stringify(cliente),
         contentType: "application/json;charset=utf-8",
         success: function (data) {
-            $.each(data, function(k,v){
+            $.each(data, function (k, v) {
                 var row = $("<tr>");
                 var radioId = 'radio_' + v.idEndereco;
                 var radio = $("<input type='radio' id='" + radioId + "'/>");
@@ -24,11 +24,24 @@ $(document).ready(function () {
                 var complemento = $("<td>").text(v.complemento);
                 var cep = $("<td>").text(v.cep);
                 row.append(radio).append(logradouro).append(nro).append(complemento).append(cep);
-                $("#tabelaEnderecos").find("tbody").append(row)
+                $("#tabelaEnderecos").find("tbody").append(row);
+                ativarRadioExclusivo();
             });
         }
     })
 });
+
+function ativarRadioExclusivo() {
+    $("input[type=radio]").click(function () {
+        var selected = this;
+        var checked = $("#tabelaEnderecos").find(":checked");
+        $.each(checked, function (k, v) {
+            if (v.id !== selected.id) {
+                $(v).prop('checked', false);
+            }
+        })
+    });
+}
 
 function incluirEndereco() {
     var logradouro = jQuery("#logradouro").val();
@@ -66,6 +79,31 @@ function incluirEndereco() {
                                     window.location.href = "/loja/pedidos/gerarBoleto/" + codigoPedido + ".html";
                                 }
                             });
+                        }
+                    });
+                }
+            });
+        }
+    });
+}
+
+function selecionarDadosEntrega() {
+    var idCliente = $("#idCliente").val();
+    var idEndereco = $(":checked").prop('id').split("radio_")[1];
+
+    $.ajax({
+        type: "POST",
+        url: "/loja/pedidos/selecionarDadosEntrega/" + idCliente + "/" + idEndereco + ".html",
+        success: function () {
+            jQuery.ajax({
+                type: "POST",
+                url: "/loja/pedidos/selecionarPagamento/1.html",
+                success: function () {
+                    jQuery.ajax({
+                        type: "POST",
+                        url: "/loja/pedidos/concluirPedido.html",
+                        success: function (codigoPedido) {
+                            window.location.href = "/loja/pedidos/gerarBoleto/" + codigoPedido + ".html";
                         }
                     });
                 }

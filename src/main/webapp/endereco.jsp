@@ -41,18 +41,18 @@
         <div class="col-md-12">
             <table id="tabelaEnderecos" class="table">
                 <thead>
-                    <tr>
-                        <th></th>
-                        <th>Logradouro</th>
-                        <th>Número</th>
-                        <th>Complemento</th>
-                        <th>CEP</th>
-                    </tr>
+                <tr>
+                    <th></th>
+                    <th>Logradouro</th>
+                    <th>Número</th>
+                    <th>Complemento</th>
+                    <th>CEP</th>
+                </tr>
                 </thead>
                 <tbody>
                 </tbody>
             </table>
-            <button class="btn btn-primary">Selecionar</button>
+            <button class="btn btn-primary" onclick="selecionarDadosEntrega()">Selecionar</button>
             <button class="btn btn-primary" data-toggle="collapse" data-target="#toggleNovo">Novo Endereço</button>
             <br/>
         </div>
@@ -110,7 +110,7 @@
 
                     <div class="col-md-4">
                         <button id="btnEndereco" name="btnEndereco" class="btn btn-primary"
-                                onclick="incluirEndereco()  ">Concluir Pedido
+                                onclick="incluirEndereco()"> Incluir endereço
                         </button>
                     </div>
                 </div>
@@ -118,6 +118,5 @@
         </div>
     </form>
 </div>
-<!-- /.container -->
-<!-- script references --></body>
+</body>
 </html>
