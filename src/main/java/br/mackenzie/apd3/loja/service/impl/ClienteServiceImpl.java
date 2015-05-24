@@ -82,5 +82,11 @@ public class ClienteServiceImpl implements ClienteService {
         return clienteDTO;
     }
 
+    @Override
+    public List<EnderecoDTO> buscarEnderecos(ClienteDTO clienteDTO) {
+        List<Endereco> enderecos = this.enderecoDAO.listarPorCliente(clienteDTO.getId());
+        return DTOUtil.converterLista(enderecos, EnderecoDTO.class);
+    }
+
 
 }

@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
          pageEncoding="utf-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en" ng-app>
 <head>
@@ -37,7 +36,7 @@
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li><a href="/loja/index.jsp">Home</a></li>
-                <li><a href="/loja/cadastro.jsp">Cadastro</a></li>
+                <li><a href="/loja/cliente.jsp">Cadastro</a></li>
                 <li><a href="#contact">Sobre</a></li>
             </ul>
         </div>

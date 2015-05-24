@@ -10,13 +10,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by BWeninger on 20/04/2015.
  */
 @Controller
 @RequestMapping(value = "/clientes")
-public class ClienteController  implements Serializable {
+public class ClienteController implements Serializable {
 
     @Autowired
     private ClienteService clienteService;
@@ -33,6 +34,13 @@ public class ClienteController  implements Serializable {
         } else {
             return cliente;
         }
+    }
+
+    @RequestMapping(value = "/buscarEnderecos", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public List<EnderecoDTO> buscarEnderecosCliente(@RequestBody ClienteDTO cliente) {
+        return this.clienteService.buscarEnderecos(cliente);
     }
 
     @RequestMapping(value = "/incluirDados", method = RequestMethod.POST,

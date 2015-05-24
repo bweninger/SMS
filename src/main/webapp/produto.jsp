@@ -22,7 +22,7 @@
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li><a href="/loja/index.jsp">Home</a></li>
-                <li><a href="/loja/cadastro.jsp">Cadastro</a></li>
+                <li><a href="/loja/cliente.jsp">Cadastro</a></li>
                 <li><a href="#contact">Sobre</a></li>
             </ul>
         </div>
