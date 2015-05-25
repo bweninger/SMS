@@ -19,11 +19,11 @@
             </button>
             <a class="navbar-brand" href="#">Loja APD3</a>
         </div>
-        <div class="collapse navbar-collapse">
+           <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li><a href="/loja/index.jsp">Home</a></li>
-                <li><a href="/loja/cliente.jsp">Cadastro</a></li>
-                <li><a href="#contact">Sobre</a></li>
+                <li><a href="/loja/index.jsp"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+                <li><a href="/loja/cliente.jsp"><span class="glyphicon glyphicon-user"></span> Cadastro</a></li>
+                <li><a href="/loja/sobre.jsp"><span class="glyphicon glyphicon-info-sign"></span> Sobre</a></li>
             </ul>
         </div>
         <!--/.nav-collapse -->
@@ -39,13 +39,12 @@
         </div>
         <div class="col-sm-8" id="detalhesProduto">
             <div>
-
                 <h2 id="tituloProduto"></h2>
                 <p id="descricaoProduto"></p>
             </div>
             <div id="botoes">
-                <a id="btnAddCart" href="" class="btn btn-primary"><span class="glyphicon glyphicon-shopping-cart"></span> Adicionar ao Carrinho</a>
-                <a href="" class="btn btn-danger" onclick="history.back()">Voltar</a>
+                <a id="btnAddCart" href="" class="btn btn-primary"><span class="glyphicon glyphicon-shopping-cart"></span>&nbsp Adicionar ao Carrinho</a>
+                <a href="" class="btn btn-danger" onclick="history.back()"><span class="glyphicon glyphicon-chevron-left"></span>&nbsp Voltar</a>
             </div>
         </div>
     </div>

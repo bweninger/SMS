@@ -35,9 +35,9 @@
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li><a href="/loja/index.jsp">Home</a></li>
-                <li><a href="/loja/cliente.jsp">Cadastro</a></li>
-                <li><a href="#contact">Sobre</a></li>
+                <li><a href="/loja/index.jsp"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+                <li><a href="/loja/cliente.jsp"><span class="glyphicon glyphicon-user"></span> Cadastro</a></li>
+                <li><a href="/loja/sobre.jsp"><span class="glyphicon glyphicon-info-sign"></span> Sobre</a></li>
             </ul>
         </div>
         <!--/.nav-collapse -->
@@ -49,7 +49,7 @@
         <div ng-controller="produtos">
             <div class="row">
                 <div class="col-md-30">
-                    <table id="tableData" class="table">
+                    <table id="tableData" class="table table-striped">
                         <thead>
                         <tr>
                             <th>ID</th>
@@ -70,19 +70,22 @@
                             <td><img src="{{produto.urlFoto}}" width="100" height="100" alt="teste"></td>
                             <td>{{produto.descricao}}</td>
                             <td>
-                                <button id="btnCompra" type="button" class="btn btn-primary" onclick="comprar({{produto.id}},{{produto.preco}});">
+                            <div class="btn-group btn-group-vertical">
+                                <button id="btnCompra" type="button" class="btn btn-success" onclick="comprar({{produto.id}},{{produto.preco}});">
                                     <span class="glyphicon glyphicon-shopping-cart"></span> Adicionar ao Carrinho
                                 </button>
+                                
                                 <a id="btnDetalhe" type="button" class="btn btn-primary" href="/loja/produto.jsp?idProduto={{produto.id}}">
                                     <span class="glyphicon glyphicon-plus">    </span> Ver detalhes
                                 </a>
+                                </div>
                             </td>
                         </tr>
                         </tbody>
                     </table>
                     <div id="botoes">
-                        <button type="submit" class="btn btn-primary" onclick="fecharPedido()">
-                            Fechar Pedido
+                        <button type="submit" class="btn btn-success" onclick="fecharPedido()"> 
+                        <span class="glyphicon glyphicon-send"></span> &nbsp Fechar Pedido
                         </button>
                     </div>
                 </div>

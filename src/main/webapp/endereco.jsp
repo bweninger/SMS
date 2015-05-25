@@ -23,11 +23,11 @@
             </button>
             <a class="navbar-brand" href="#">Loja APD3</a>
         </div>
-        <div class="collapse navbar-collapse">
+          <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li><a href="/loja/index.jsp">Home</a></li>
-                <li><a href="/loja/cliente.jsp">Cadastro Cliente</a></li>
-                <li><a href="#contact">Sobre</a></li>
+                <li><a href="/loja/index.jsp"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+                <li><a href="/loja/cliente.jsp"><span class="glyphicon glyphicon-user"></span> Cadastro</a></li>
+                <li><a href="/loja/sobre.jsp"><span class="glyphicon glyphicon-info-sign"></span> Sobre</a></li>
             </ul>
         </div>
         <!--/.nav-collapse -->
@@ -56,6 +56,7 @@
             <button class="btn btn-primary" data-toggle="collapse" data-target="#toggleNovo">Novo Endereço</button>
             <br/>
         </div>
+           <div class="col-sm-12">
         <div id="toggleNovo" class="collapse">
             <fieldset>
                 <!-- Form Name -->
@@ -116,6 +117,7 @@
                 </div>
             </fieldset>
         </div>
+       </div>
     </form>
 </div>
 </body>
