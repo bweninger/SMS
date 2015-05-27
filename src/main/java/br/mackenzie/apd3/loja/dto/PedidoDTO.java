@@ -119,7 +119,12 @@ public class PedidoDTO implements Serializable{
     }
 
     public void pagarPorDebitoEmConta() {
-        throw new UnsupportedOperationException();
+        if (this.status == StatusPedido.AGUARDANDO_PAGAMENTO) {
+            this.pagamento = new PagamentoDebitoContaDTO(calcularValorPedido(),
+                    StatusPagamento.AGUARDANDO_AUTORIZACAO);
+        } else {
+            throw new IllegalStateException();
+        }
     }
 
     public EnderecoDTO getEnderecoEntrega() {

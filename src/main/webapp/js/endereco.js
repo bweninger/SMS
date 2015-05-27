@@ -95,19 +95,8 @@ function selecionarDadosEntrega() {
         type: "POST",
         url: "/loja/pedidos/selecionarDadosEntrega/" + idCliente + "/" + idEndereco + ".html",
         success: function () {
-            jQuery.ajax({
-                type: "POST",
-                url: "/loja/pedidos/selecionarPagamento/1.html",
-                success: function () {
-                    jQuery.ajax({
-                        type: "POST",
-                        url: "/loja/pedidos/concluirPedido.html",
-                        success: function (codigoPedido) {
-                            window.location.href = "/loja/pedidos/gerarBoleto/" + codigoPedido + ".html";
-                        }
-                    });
-                }
-            });
+            window.location.href = "/loja/pagamento.jsp";
         }
     });
 }
+

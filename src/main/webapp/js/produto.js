@@ -12,15 +12,18 @@ $(document).ready(function () {
                 $("#imagemProduto").append(img);
 
                 var precoHtml = $("<h3>").text("R$ " + produtoJson.precoStr);
+                $("#precoProduto").val(produtoJson.precoStr);
                 $("#imagemProduto").append(precoHtml);
             }
         }
     )
 
     $("#btnAddCart").click(function () {
+        var preco = $("#precoProduto").val();
         var compra = {
             produto: {
-                id: idProduto
+                id: idProduto,
+                preco: preco
             },
             quantidade: 1
         }

@@ -75,6 +75,7 @@ public class PedidoController implements Serializable {
     public String concluirPedido() {
         Long nroPedido = this.pedidoDTO.gerarNumeroPedido();
         this.pedidoService.cadastrarPedido(pedidoDTO);
+        this.pedidoDTO = new PedidoDTO();
         return nroPedido.toString();
     }
 
@@ -96,4 +97,10 @@ public class PedidoController implements Serializable {
                 IOUtils.closeQuietly(is);
         }
     }
+
+//    @RequestMapping(value = "/debitoEmConta/{codigoPedido}", method = RequestMethod.GET)
+//    public void pagarPorDebitoEmConta(@PathVariable("codigoPedido") Long codigoPedido) {
+//        PedidoDTO pedidoDTO = this.pedidoService.buscarPorCodigoPedido(codigoPedido);
+//
+//    }
 }

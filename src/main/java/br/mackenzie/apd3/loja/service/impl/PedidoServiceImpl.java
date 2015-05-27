@@ -3,7 +3,6 @@ package br.mackenzie.apd3.loja.service.impl;
 import br.mackenzie.apd3.loja.dao.ItemPedidoDAO;
 import br.mackenzie.apd3.loja.dao.PagamentoDAO;
 import br.mackenzie.apd3.loja.dao.PedidoDAO;
-import br.mackenzie.apd3.loja.dto.ItemPedidoDTO;
 import br.mackenzie.apd3.loja.dto.PedidoDTO;
 import br.mackenzie.apd3.loja.model.ItemPedido;
 import br.mackenzie.apd3.loja.model.Pedido;
