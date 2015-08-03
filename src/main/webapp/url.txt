@@ -1,1 +1,0 @@
-http://localhost:8181/loja/pedidos/gerarBoleto/2015042120132018.html
