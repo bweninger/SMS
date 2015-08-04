@@ -5,5 +5,5 @@ package com.ciandt.casetecnico.service;
  */
 public interface SMSService {
 
-    String traduzirParaTecladoNumerico(String frase);
+    String traduzir(String frase);
 }

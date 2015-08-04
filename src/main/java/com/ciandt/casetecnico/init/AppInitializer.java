@@ -17,12 +17,12 @@ public class AppInitializer implements WebApplicationInitializer{
         servletContext.addListener(new ContextLoaderListener(context));
         ServletRegistration.Dynamic dispatcher = servletContext.addServlet("DispatcherServlet", new DispatcherServlet(context));
         dispatcher.setLoadOnStartup(1);
-        dispatcher.addMapping("*.html");
+        dispatcher.addMapping("/");
 	}
 	
 	private AnnotationConfigWebApplicationContext getContext(){
 		AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
-		context.setConfigLocation("com.ciandt.case.config");
+		context.setConfigLocation("com.ciandt.casetecnico.config");
 		return context;
 	}
 

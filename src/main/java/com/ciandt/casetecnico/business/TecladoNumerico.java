@@ -25,7 +25,7 @@ public class TecladoNumerico {
 
     public final String traduzirParaNumeros(String frase) {
         StringBuilder result = new StringBuilder();
-        frase = frase.toUpperCase();
+        frase = frase.toUpperCase().trim();
         for(int i = 0; i < frase.length();i++) {
             Integer representacaoNumerica = caractereParaNumero(frase.substring(i, i + 1));
             if(result.length() > 0) {
@@ -58,5 +58,25 @@ public class TecladoNumerico {
         }
 
         return total;
+    }
+
+    public final String traduzirDeTecladoNumerico(String codigo) {
+        StringBuilder result = new StringBuilder();
+        String prev = codigo.substring(0, 1);
+        int count = 0;
+        for(int i = 1; i < codigo.length(); prev = codigo.substring(i, i+1), i++) {
+           if (codigo.substring(i, i+1).equals(prev)) {
+               count++;
+               continue;
+           }
+
+            if (!prev.equals("_")) {
+                result.append(mapaCaracteres.get(Integer.parseInt(prev.toString())).charAt(count));
+            }
+            count = 0;
+        }
+
+        result.append(mapaCaracteres.get(Integer.parseInt(prev.toString())).charAt(count));
+        return result.toString();
     }
 }
